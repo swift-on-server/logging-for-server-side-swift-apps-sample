@@ -31,11 +31,11 @@ public struct Meeting {
         
         if isInProgress {
             print("🤫✋ \(participant.name)")
-            logger.notice("meeting is in progress")
+            logger.trace("meeting is in progress")
         }
         
         guard !participants.contains(participant) else {
-            logger.warning("couldn't add participant, already there", metadata: [
+            logger.trace("couldn't add participant, already there", metadata: [
                 "participant.id": "\(participant.id)",
                 "participant.name": "\(participant.name)",
             ])
@@ -59,10 +59,10 @@ public struct Meeting {
 
         if isInProgress {
             print("🤫👋 \(participant.name)")
-            logger.notice("meeting is in progress")
+            logger.trace("meeting is in progress")
         }
         guard participants.contains(participant) else {
-            logger.warning("can't remove participant, not there", metadata: [
+            logger.trace("can't remove participant, not there", metadata: [
                 "participant.id": "\(participant.id)",
                 "participant.name": "\(participant.name)",
             ])
@@ -83,12 +83,12 @@ public struct Meeting {
         logger.debug("trying to start the meeting")
         
         guard !isInProgress else {
-            logger.warning("already in progress")
+            logger.trace("already in progress")
             return
         }
         
         guard !participants.isEmpty else {
-            logger.warning("no participants")
+            logger.trace("no participants")
             return
         }
         isInProgress = true
@@ -110,11 +110,12 @@ public struct Meeting {
         logger.debug("trying to end the meeting")
         
         guard isInProgress else {
-            logger.warning("meeting is not in progress yet")
+            logger.trace("meeting is not in progress yet")
             return
         }
 
         for participant in participants {
+            
             logger.trace("removing participant", metadata: [
                 "participant.id": "\(participant.id)",
                 "participant.name": "\(participant.name)",
