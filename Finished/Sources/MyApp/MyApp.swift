@@ -7,10 +7,10 @@ struct MyApp {
     
     static func main() async throws {
         // setenv("MY_APP_LOG_LEVEL", "trace", 1)
-        let appLogger = Logger.env("my-app", logLevel: .info)
+        let appLogger = Logger.subsystem("my-app", .trace)
         
         // setenv("MY_LIBRARY_LOG_LEVEL", "trace", 1)
-        let libLogger = Logger.env("my-library", logLevel: .info)
+        let libLogger = Logger.subsystem("my-library", .info)
         
         appLogger.info("Start a meeting")
         let bob = Participant(name: "Bob")
@@ -34,7 +34,17 @@ struct MyApp {
         meeting.remove(mike)
         
         appLogger.info("Start the meeting")
-        meeting.start()
+
+        if !meeting.hasEnoughParticipants {
+            appLogger.warning("the meeting has not enouh participants just yet")
+        }
+        
+        do {
+            try meeting.start()
+        }
+        catch {
+            appLogger.error("\(error)")
+        }
         
         appLogger.notice("Add Mike to the list")
         meeting.add(mike)

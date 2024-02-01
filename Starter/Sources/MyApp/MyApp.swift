@@ -14,6 +14,10 @@ struct MyApp {
         var meeting = Meeting(
             id: .init()
         )
+        
+        if !meeting.hasEnoughParticipants {
+            print("⚠️ the meeting has not enouh participants just yet")
+        }
                 
         meeting.add(bob)
         meeting.add(john)
@@ -21,7 +25,12 @@ struct MyApp {
 
         meeting.remove(mike)
 
-        meeting.start()
+        do {
+            try meeting.start()
+        }
+        catch {
+            print("\(error)")
+        }
         
         meeting.add(mike)
         

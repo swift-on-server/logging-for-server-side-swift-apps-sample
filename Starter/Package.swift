@@ -11,7 +11,6 @@ let package = Package(
         .executable(name: "MyApp", targets: ["MyApp"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-log", from: "1.5.0"),
 
     ],
     targets: [
@@ -25,7 +24,6 @@ let package = Package(
             name: "MyApp",
             dependencies: [
                 .target(name: "MyLibrary"),
-                .product(name: "Logging", package: "swift-log"),
 
             ]
         ),
