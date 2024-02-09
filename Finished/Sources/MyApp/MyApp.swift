@@ -10,7 +10,7 @@ struct MyApp {
         let appLogger = Logger.subsystem("my-app", .trace)
         
         // setenv("MY_LIBRARY_LOG_LEVEL", "trace", 1)
-        let libLogger = Logger.subsystem("my-library", .info)
+        let libLogger = Logger.subsystem("my-library", .trace)
         
         appLogger.info("Start a meeting")
         let bob = Participant(name: "Bob")
@@ -36,7 +36,7 @@ struct MyApp {
         appLogger.info("Start the meeting")
 
         if !meeting.hasEnoughParticipants {
-            appLogger.warning("the meeting has not enouh participants just yet")
+            appLogger.warning("the meeting has not enough participants just yet")
         }
         
         do {
